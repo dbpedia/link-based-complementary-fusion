@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>JRCNamesJena</groupId>
+  <artifactId>JRCNamesJena</artifactId>
+  <version>0.0.2-SNAPSHOT</version>
+  <name>JRCNamesJena</name>
+  <description>binds multiple name spelling variations  from jrc-names to dbpedia </description>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+      <!-- Maven Shade Plugin -->
+		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-shade-plugin</artifactId>
+		  <version>2.4.3</version>
+		  <executions>
+		     <!-- Run shade goal on package phase -->
+		    <execution>
+			<phase>package</phase>
+			<goals>
+				<goal>shade</goal>
+			</goals>
+			<configuration>
+			  <transformers>
+				<!--  Main-Class  -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+					<mainClass>org.askw.jena_sparql.pagination.ConstructQueryPaginator</mainClass>
+				</transformer>
+			  </transformers>
+			</configuration>
+		      </execution>
+		  </executions>
+		</plugin>
+    </plugins>
+  </build>
+  <dependencies>
+  	<dependency>
+    	<groupId>org.apache.jena</groupId>
+    	<artifactId>apache-jena-libs</artifactId>
+    	<type>pom</type>
+    	<version>2.12.1</version>
+  	</dependency>
+  	<!-- https://mvnrepository.com/artifact/net.sf.jopt-simple/jopt-simple -->
+	<dependency>
+    	<groupId>net.sf.jopt-simple</groupId>
+    	<artifactId>jopt-simple</artifactId>
+    	<version>5.0.3</version>
+	</dependency>
+  </dependencies>
+</project>

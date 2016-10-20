@@ -1,0 +1,18 @@
+PREFIX lemon: <http://www.lemon-model.net/lemon#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX dbo: <http://dbpedia.org/ontology#>
+
+CONSTRUCT  {?dbpedia  <http://dbpedia.org/ext/jrc-label>    ?Rep . <http://dbpedia.org/ext/jrc-label>  rdfs:subPropertyOf skos:altLabel . } 
+#FROM <http://data.europa.eu/euodp/sparqlep>
+WHERE
+{ 
+	?variant rdf:type lemon:LexicalEntry .
+	?variant lemon:sense [ lemon:reference ?ref ]  . 
+	?ref owl:sameAs ?dbpedia .
+	FILTER ( STRSTARTS(STR(?dbpedia), "http://dbpedia.org/resource/") ).
+  	?variant lemon:canonicalForm ?form .
+	?form lemon:writtenRep ?Rep .
+}
