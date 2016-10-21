@@ -5,23 +5,10 @@
   <version>0.0.2-SNAPSHOT</version>
   <name>JRCNamesJena</name>
   <description>binds multiple name spelling variations  from jrc-names to dbpedia </description>
-  
-  <dependencies>
-  	<dependency>
-    	<groupId>org.apache.jena</groupId>
-    	<artifactId>apache-jena-libs</artifactId>
-    	<type>pom</type>
-    	<version>2.12.1</version>
-  	</dependency>
-  	<!-- https://mvnrepository.com/artifact/net.sf.jopt-simple/jopt-simple -->
-	<dependency>
-    	<groupId>net.sf.jopt-simple</groupId>
-    	<artifactId>jopt-simple</artifactId>
-    	<version>5.0.3</version>
-	</dependency>
-  </dependencies>
-  
-  <build>
+  <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<build>
     <sourceDirectory>src</sourceDirectory>
     <resources>
       <resource>
@@ -53,19 +40,31 @@
 				<goal>shade</goal>
 			</goals>
 			<configuration>
-			  <shadedArtifactAttached>true</shadedArtifactAttached>
 			  <transformers>
 				<!--  Main-Class  -->
-                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-					<mainClass>org.askw.linkbasedfusion.pagination.ConstructQueryPaginator</mainClass>
-					
+					<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+						<mainClass>org.askw.linkbasedfusion.pagination.ConstructQueryPaginator</mainClass>
 				</transformer>
 			  </transformers>
+				<dependencyReducedPomLocation>${project.build.directory}${file.separator}dependency-reduced-pom.xml</dependencyReducedPomLocation>
 			</configuration>
 		      </execution>
 		  </executions>
 		</plugin>
     </plugins>
   </build>
-  
+  <dependencies>
+  	<dependency>
+    	<groupId>org.apache.jena</groupId>
+    	<artifactId>apache-jena-libs</artifactId>
+    	<type>pom</type>
+    	<version>2.12.1</version>
+  	</dependency>
+  	<!-- https://mvnrepository.com/artifact/net.sf.jopt-simple/jopt-simple -->
+	<dependency>
+    	<groupId>net.sf.jopt-simple</groupId>
+    	<artifactId>jopt-simple</artifactId>
+    	<version>5.0.3</version>
+	</dependency>
+  </dependencies>
 </project>
